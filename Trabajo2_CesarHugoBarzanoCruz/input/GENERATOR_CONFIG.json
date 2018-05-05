@@ -1,0 +1,23 @@
+ {
+	"mysql_1": {
+		"user": "root",
+		"password": "",
+		"host": "localhost",
+		"database": "testGAC"
+	},
+	"mysql_2": {
+		"user": "root",
+		"password": "",
+		"host": "127.0.0.1",
+		"database": "testGAC"
+	},
+  "postgres_1": {
+		"user": "postgres",
+		"password": "123456",
+		"host": "127.0.0.1",
+		"database": "testgac"
+	},
+  "sqlite3_1": {
+    "db_path": "./testGAC.db"
+  }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<planets>
+	<planet>
+		<radius>6,371km</radius>
+		<name>Earth</name>
+	</planet>
+	<planet>
+		<radius>69,911km</radius>
+		<name>Jupiter</name>
+	</planet>
+	<planet>
+		<radius>3,390km</radius>
+		<name>Mars</name>
+	</planet>
+</planets>
