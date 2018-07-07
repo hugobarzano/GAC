@@ -6,6 +6,7 @@ import psycopg2
 
 
 #sqlite3 initial
+"""
 sqlite3_conn = sqlite3.connect('./testGAC.db')
 sqlite3_cursor = sqlite3_conn.cursor()
 sqlite3_cursor.execute('''CREATE TABLE gac_models (atr_1 text, atr_2 text)''')
@@ -13,13 +14,13 @@ sqlite3_cursor.execute("INSERT INTO gac_models VALUES ('atribute_1','atribute_2'
 sqlite3_cursor.execute("INSERT INTO gac_models VALUES ('atribute_3','atribute_4')")
 sqlite3_conn.commit()
 sqlite3_conn.close()
-
+"""
 
 #mysql initial
 
 config_mysql = {
   'user': 'root',
-  'password': '',
+  'password': 'root',
   'host': '127.0.0.1',
   'database': '',
 }
@@ -50,12 +51,12 @@ mysql_cursor.close()
 mysql_conn.close()
 
 
-
+"""
 #Postgres initial
 config_postgres="host='localhost' dbname='testgac' user='postgres' password='123456'"
 postgres_conn = psycopg2.connect(config_postgres)
 postgres_cursor = postgres_conn.cursor()
-
+"""
 postgres_gac_model = (
         """
         CREATE TABLE gac_models (
@@ -64,11 +65,11 @@ postgres_gac_model = (
             atr_2 VARCHAR(14) NOT NULL
         )
         """)
-postgres_cursor.execute(postgres_gac_model)
+#postgres_cursor.execute(postgres_gac_model)
 
 add_postgres_model=("INSERT INTO gac_models (atr_1,atr_2) VALUES(%s,%s)")
 data_postgres_model=('atribute_1','atribute_2')
 
-postgres_cursor.execute(add_postgres_model,data_postgres_model)
-postgres_conn.commit()
-postgres_conn.close()
+#postgres_cursor.execute(add_postgres_model,data_postgres_model)
+#postgres_conn.commit()
+#postgres_conn.close()
