@@ -188,7 +188,7 @@ pdfproducer = {pdflatex}
 
 \chapter{Introducción}
 
-El presente documento representa la memoria formal para evaluación continua de la segunda práctica de la asignatura  Generación Automática de Código. Dicha práctica consiste en un generador de formatos (CSV , HTML , XML, JSON) como salida a partir de un SGBD relacional como entrada.  
+El presente documento representa la memoria formal para evaluación continua de la segunda práctica de la asignatura  Generación Automática de Código. Dicha práctica consiste en un generador de datos en formatos (CSV , HTML , XML, JSON) como salida a partir de un sistema de gestion de bases de datos (SGBD) relacional como entrada.  
 
 En los siguientes capítulos se detallará la solución propuesta, las tecnologías utilizadas, se analizarán las ventajas e inconvenientes de la solución propuesta, se explicarán los casos de uso o pruebas a los que se ha sometido el generador, se explicará como utilizar correctamente el generador así como las dependencias necesarias para su correcto uso. 
 
@@ -200,15 +200,7 @@ Finalmente se analizarán las tareas y conocimientos adquiridos en esta práctic
 
 \section{Tecnologías Utilizadas}
 
-Como tecnología base, se ha decidido utilizar el lenguaje de programación interpretado Python\cite{py}, versión 2.7.15 debido a la sencillez y capacidad del mismo para proporcionar una solución. Con el objetivo de alcanzar una implementación eficiente y no ''re-inventar la rueda'' se han utilizado las siguientes librerías o recursos del lenguaje con su correspondiente justificación: 
-
-\begin{enumerate}
-\item \textbf{import json} JSON encoder and decoder Lib\cite{json_lib}.
-\item \textbf{import xmltodict} Makes working with XML feel like you are working with JSON\cite{xmltodic_lib}.
-\item \textbf{import sys} System-specific parameters and functions\cite{sys_lib}.
-\item \textbf{import os} Miscellaneous operating system interfaces\cite{os_lib}.
-\item \textbf{import getopt} C-style parser for command line options\cite{getopt_lib}.
-\end{enumerate}
+Como tecnología base, se ha decidido utilizar el lenguaje de programación interpretado Python\cite{py}, versión 2.7.15 debido a la sencillez y capacidad del mismo para proporcionar una solución. 
 
 Como se indicó en la introducción, la entrada del generador a impletar es uno o varios sistemas de gestión de bases de datos(SGBD). Los SGBDs que este generador soporta son los siguientes:
 
@@ -227,38 +219,105 @@ Adicionalmente para la confección de esta memoria se ha utilizado LaTEX con el 
 \item \href{ http://minisconlatex.blogspot.com.es/}{Usar LaTeX}
 \end{enumerate}
  
- 
-
-
-
 \section{Especificación de la Solución}
 
 Las posibles especificaciones e implementaciones para un generador como el propuesto por el enunciado pueden ser muy variadas. Dichas especificaciones pueden variar significativamente en función de las tecnologías utilizadas, las aserciones o comprobaciones de robustez que se quieran realizar a las entradas, al procesamiento o a las salidas, los posibles casos que se quieran tener en cuenta así como el grado de modularidad que se quiera alcanzar de cara a futuras actualizaciones.
 
+El generador utiliza a modo de configuración un fichero Json en el que vienen especificados los parametros necesarios para establecer la conexión con los distintos SGBD soportados. Un Ejemplo de entrada para este fichero de configuración es el siguiente: 
 
-El generador recibirá como entrada un fichero Json, comprobará que dicho fichero tiene el formato adecuado(file.json), lo leerá, comprobará que el fichero json leído tiene una estructura valida (al cargarlo con la instrucción json.loads(string) se realiza una validación contra esquema, serializa el fichero de salida (añadiendo .xml si no se especifica el formato del fichero de salida al realizar la llamada), realizará el tratamiento, y escribirá el resultado en el fichero de salida indicado como argumento. 
+\begin{lstlisting}[language=python,caption={ Entrada Unitaria Configuración Generador }]
+{
+...
+
+"mysql_1": {
+		"user": "user",
+		"password": "pass",
+		"host": "host",
+		"database": "database"
+	},
+...
+}
+\end{lstlisting}
+
+Las entradas usan como clave el identificador del tipo de SGBD, esto permite al generador diferenciar el tipo de conector a usar para poder extraer los datos, es decir, mysql\_n establece la informacion necesaria para conectarse al SGBD número N basado en mysql. Esto permite configurar tantos SGBD basados en mysql como se quiera. El siguiente ejemplo muestra un ejemplo de configuración más completo en el que se incluyen todos los SGBD soportados por el generador: 
+
+\begin{lstlisting}[language=python,caption={ Entrada Completa Configuración Generador }]
+
+{
+ 	"mysql_1": {
+ 		"user": "user",
+ 		"password": "pass",
+ 		"host": "host",
+ 		"database": "database"
+ 	},
+ 	"mysql_2": {
+ 		"user": "user2",
+ 		"password": "pass2",
+ 		"host": "host2",
+ 		"database": "database2"
+ 	},
+ 	"postgres_1": {
+ 		"user": "postgres",
+ 		"password": "123456",
+ 		"host": "host",
+ 		"database": "database"
+ 	},
+ 	"sqlite3_1": {
+ 		"db_path": "path/to/database/file"
+ 	}
+ }
+\end{lstlisting}
+
+Como podemos observar en el ejemplo anterior, el fichero de configuración para el generador nos permite definer tantos SGBD como necesitemos inidcando siempre el indicador de tecnología: mysql\_N, postgres\_N o sqlite3\_N.
+
+En los casos de mysql y postgres es necesario establecer la configuración necesaria para la conexión indicando usuario, contraseña, host (url o ip) y base de datos a la que conectar. De manera adicional el genrador soporta sqlite3 pero debido a ser esta una base de datos para pruebas generalmente en local, la información necesaria es el path al fichero en disco que actua como base de datos. Para este último caso es necesario tener en cuenta que dicho fichero tiene que tener los permisos adecuados (lectura almenos) para que el generador sea capaz de leer la información de dicha base de datos. 
+
 
 El generador cuenta con la siguiente ayuda con el objetivo de facilitar la comprensión de los argumentos que necesita para un uso nominal. 
 
-\begin{figure}[htbpH]  
-\centering 
-\includegraphics[scale=0.35]{imagenes/help.png}
-\caption{ Ayuda  }  
-\end{figure}  
 
+\begin{lstlisting}[language=python,caption={ python generadorP2.py --help }]
 
-Con el objetivo de facilitar la comprensión de que hace el generador en cada etapa de su ejecución, se ha incluido el flag -d o --debug el cual permite ver por la salida estándar que acción esta realizando el generador desde que se invoca hasta que finaliza, se verán ejemplos de esto en la sección correspondiente a pruebas.     
+Usage: python generador.py [options]
 
+Options
+-v, --version			Show the version of this script
+-h, --help			Show this help.
+-t <table_name>, --table <table_name>   Input database table
+-w <"column = 'value'">, --where <"column = 'value'">   Optional Where Clause
+-d,         --debug         	Debug Mode
+
+\end{lstlisting}
+
+Como podemos observar en la ayuda del generador, es necesario el flag -t o --table para indicar la tabla de la cual el generador va a extraer la información  dentro de los distintos SGBD establecidos en la configuración. 
+
+De manera adicional, se puede añadir el flag -w o --where para filtar utilizando la clausula relacional WHERE. 
+
+Con el objetivo de facilitar la comprensión de que hace el generador en cada etapa de su ejecución, se ha incluido el flag -d o --debug el cual permite ver por la salida estándar que acción esta realizando el generador.   
+
+Tras una ejecución, el generador creará en el directorio OUTPUT 4 ficheros por cada uno de los SGBD especificados con la siguiente convención de nombres:
+
+\begin{enumerate}
+\item \textbf{GAC\_mysql\_1\_20180820\_203859.csv}
+\item \textbf{GAC\_mysql\_1\_20180820\_203859.html}
+\item \textbf{GAC\_mysql\_1\_20180820\_203859.json}
+\item \textbf{GAC\_mysql\_1\_20180820\_203859.xml}
+\end{enumerate}
 
 \section{Análisis de la solución}
 
-	Se considera que la solución propuesta es valida, ya que cumple con lo solicitado, realiza las adecuadas comprobaciones para una correcta ejecución y además se ha alcanzado de una manera sencilla, en un solo script python formado por una serie de funciones. La modularidad de la solución propuesta favorece a posibles actualizaciones del generador de cara al futuro, además de contar con la funcionalidad adicional de poder generar JSON desde XMLs. 
+	Se considera que la solución propuesta es valida, ya que cumple con lo solicitado, realiza las adecuadas comprobaciones para una correcta ejecución y además se ha alcanzado de una manera sencilla, en un solo script python formado por una serie de funciones. La modularidad de la solución propuesta favorece a posibles actualizaciones del generador de cara al futuro.
 
 Se considera interesante que para alcanzar la solución propuesta, el uso de librerías de terceros se ha limitado únicamente a lo necesario para la solución. Si bien, se podrían incluir mas mecanismos y aserciones de los incluidos para garantizar a los usuarios del generador que tanto entradas como salidas tienen el formato correcto, la estructura correcta y los permisos adecuados. 
  
 \section{Pruebas}
 
-Con el Objetivo de mostrar la potencia del generador, se van a realizar una serie de ejecuciones de prueba para mostrar todos los posibles escenarios del generador. Adicionalmente se va a mostrar ciertos casos de error tenidos en cuenta en la implementación de la solución, por lo que se propone dividir esta sección en las siguientes sub-secciones. Para automatizar este proceso se ha creado el makefile que se adjunta en al anexo donde se especifica que se va a ejecutar, tomando como entrada los ficheros alojados en el directorio input y dejando el resultado en el directorio output. En las capturas que muestran cada una de las pruebas se ve todo lo necesario para su ejecución.  
+Con el Objetivo de mostrar la potencia del generador, se van a realizar una serie de ejecuciones de prueba para mostrar todos los posibles escenarios del generador. Para ello es necesario disponer de los 3 tipos de SGBD soportadas por el generador con datos significaticos que exportar. PAra ello se incluye el fichero init.py cuyo objetivo es el de añadir entradas a las bases de datos intaladas localmente en mi equipo. 
+
+Para facilitar los distintos escenarios de pruebas a los que vamos a someter al generador, se va a utlizar una base de datos mysql sin contraseña, una base datos postegres cuya contraseña es 123456 y como detallamos anteriormente una base de datos sqlite3 en disco. das y ademas 
+
+
+ Adicionalmente se va a mostrar ciertos casos de error tenidos en cuenta en la implementación de la solución, por lo que se propone dividir esta sección en las siguientes sub-secciones. Para automatizar este proceso se ha creado el makefile que se adjunta en al anexo donde se especifica que se va a ejecutar, tomando como entrada los ficheros alojados en el directorio input y dejando el resultado en el directorio output. En las capturas que muestran cada una de las pruebas se ve todo lo necesario para su ejecución.  
 
 \subsection{Pruebas de Funcionalidad}
 Para mostrar la correcta funcionalidad del generador, estas pruebas van a comenzar tratando los tipos de datos básicos y una vez cubiertos, se realizarán con ficheros de entrada complejos. 
