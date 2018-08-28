@@ -21,7 +21,6 @@ import csv
 import io
 
 
-
 #INPUT and OUTPUT DATA FOLDER
 OUTPUT_FOLDER="./output/"
 INPUT_FOLDER="./input/"
@@ -47,13 +46,11 @@ def buildxml(root, data):
         root.text = str(data)
     return root
 
-
 def buildCsv(data,sgbd):
     with open(OUTPUT_FOLDER+"GAC_"+sgbd+"_"+time.strftime("%Y%m%d_%H%M%S")+".csv", "w") as output:
         writer = csv.writer(output, lineterminator='\n')
         writer.writerows(data)
     print "Writing output file in"+OUTPUT_FOLDER+"GAC_"+sgbd+"_"+time.strftime("%Y%m%d_%H%M%S")+".csv"
-
 
 def buildHtml(data,sgbd):
     html_table_1="""<table style="width:100%">"""
@@ -73,7 +70,6 @@ def buildHtml(data,sgbd):
     <h1>"""+sgbd+"""</h1><hr><br>"""+html_table+"""</body></html> """
     return html_doc
 
-
 def writeOutput(output_file,output_string):
     """Function to write output files.
          :param output_file: output file path
@@ -90,9 +86,8 @@ def configurePostgres(config_json):
     config_str="host='"+config_json["host"]+"' dbname='"+config_json["database"]+"' user='"+config_json["user"]+"' password='"+config_json["password"]+"'"
     return config_str
 
-
-
 def main(argv):
+    #python generadorP2.py -t gac_models -w "atr_1 = 'atribute_1'"
     """Main method to execute the generator.
                 :param argv: value from 0 to n-1 to ident"""
     table=None
@@ -184,13 +179,9 @@ def main(argv):
     #isinstance(object, classinfo)
 
 
-
-
 # --------------------------------------------------------------------------------------------------
 # Main exec
 # --------------------------------------------------------------------------------------------------
-
-
 
 def usage():
     """Method to display generator usage. """
@@ -200,19 +191,14 @@ Usage: python generador.py [options]
 Options
 -v, --version			Show the version of this script
 -h, --help			Show this help.
--i <path>, --input <path>    	Input file
--o <path>, --output <path>     	Output file
+-t <table_name>, --table <table_name>   Input database table
+-w <"column = 'value'">, --where <"column = 'value'">   Optional Where Clause
 -d,         --debug         	Debug Mode
 """
 
 def version():
     """Function to display software version"""
     print "version 1.0"
-
-
-
-
-
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
