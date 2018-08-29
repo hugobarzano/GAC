@@ -1,0 +1,8 @@
+ {
+	"mysql_1": {
+		"user": "root",
+		"password": "root",
+		"host": "localhost",
+		"database": "testGAC"
+	}
+}

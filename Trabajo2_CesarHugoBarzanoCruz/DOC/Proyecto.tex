@@ -306,24 +306,70 @@ Tras una ejecución, el generador creará en el directorio OUTPUT 4 ficheros por
 
 \section{Análisis de la solución}
 
-	Se considera que la solución propuesta es valida, ya que cumple con lo solicitado, realiza las adecuadas comprobaciones para una correcta ejecución y además se ha alcanzado de una manera sencilla, en un solo script python formado por una serie de funciones. La modularidad de la solución propuesta favorece a posibles actualizaciones del generador de cara al futuro.
+	Se considera que la solución propuesta es valida, ya que cumple con lo solicitado, realiza las adecuadas comprobaciones para una correcta ejecución, genera los distintos formatos esperados y además se ha alcanzado de una manera sencilla, en un solo script python junto con los conectores necesarios para cada uno de los SGBD tratados. La modularidad de la solución propuesta favorece posibles actualizaciones del generador, incluyendo en el bucle de iteración principal el conector necesario para soportar nuevas bases de datos. El generador carga su configuración mediante variables de entorno ( GENERATOR\_CONFIG ) lo que permite cambiar rapidamente el tipo de configuración a utilizar en cada ejecución. 
 
-Se considera interesante que para alcanzar la solución propuesta, el uso de librerías de terceros se ha limitado únicamente a lo necesario para la solución. Si bien, se podrían incluir mas mecanismos y aserciones de los incluidos para garantizar a los usuarios del generador que tanto entradas como salidas tienen el formato correcto, la estructura correcta y los permisos adecuados. 
+La solución alcanzada no es completa debido a los conectores con las bases de datos, ya que como se ha explicado antes solo soporta 3 SGBD por lo que quizas esta seria su principal defecto. 
  
 \section{Pruebas}
 
-Con el Objetivo de mostrar la potencia del generador, se van a realizar una serie de ejecuciones de prueba para mostrar todos los posibles escenarios del generador. Para ello es necesario disponer de los 3 tipos de SGBD soportadas por el generador con datos significaticos que exportar. PAra ello se incluye el fichero init.py cuyo objetivo es el de añadir entradas a las bases de datos intaladas localmente en mi equipo. 
+Con el Objetivo de mostrar la potencia del generador, se van a realizar una serie de ejecuciones de prueba para mostrar todos los posibles escenarios del generador. Para ello es necesario disponer de los 3 tipos de SGBD soportadas por el generador con datos significaticos que exportar. Para ello se incluye el fichero init.py cuyo objetivo es el de añadir entradas a las bases de datos instaladas localmente en mi equipo. 
 
-Para facilitar los distintos escenarios de pruebas a los que vamos a someter al generador, se va a utlizar una base de datos mysql sin contraseña, una base datos postegres cuya contraseña es 123456 y como detallamos anteriormente una base de datos sqlite3 en disco. das y ademas 
+Para facilitar los distintos escenarios de pruebas a los que vamos a someter al generador, se va a utlizar el usuario root con password root para la base de datos mysql , una base datos postegres cuyo usuario y contraseña es postgres:123456 y como detallamos anteriormente una base de datos sqlite3 representada por un fichero en disco.
 
 
- Adicionalmente se va a mostrar ciertos casos de error tenidos en cuenta en la implementación de la solución, por lo que se propone dividir esta sección en las siguientes sub-secciones. Para automatizar este proceso se ha creado el makefile que se adjunta en al anexo donde se especifica que se va a ejecutar, tomando como entrada los ficheros alojados en el directorio input y dejando el resultado en el directorio output. En las capturas que muestran cada una de las pruebas se ve todo lo necesario para su ejecución.  
+Adicionalmente se va a mostrar ciertos casos de error tenidos en cuenta en la implementación de la solución, por lo que se propone dividir esta sección en las siguientes sub-secciones. Para automatizar este proceso se ha creado el Makefile que se adjunta en al anexo donde se especifica cada uno de los testCases\_N.sh que serán ejecutados, tomando como entrada los ficheros alojados en el directorio input y dejando el resultado en el directorio output. En las capturas que muestran cada una de las pruebas se ve todo lo necesario para su ejecución.  
 
 \subsection{Pruebas de Funcionalidad}
-Para mostrar la correcta funcionalidad del generador, estas pruebas van a comenzar tratando los tipos de datos básicos y una vez cubiertos, se realizarán con ficheros de entrada complejos. 
+Para mostrar la correcta funcionalidad del generador se va a comenzar exportando datos de cada uno de los SGBD de manera independiente. Tras esto, se ejemplificará el uso de la clausula WHERE para filtrar los datos a exportar y finalmente se mostrarán casos de pruebas mas complejos en los que se atará con una sola ejecuación a todos los SGBD soportados por el generador.  
 
-\subsubsection{Strings}
-Tipo de dato: Cadenas de caracteres
+\subsubsection{Test Case 1 - mysql}
+
+A continuación se muestra la configuración utilziada por el generador para el primer caso de pruaba. 
+
+\begin{lstlisting}[language=python,caption={make testServlet }]
+ {
+	"mysql_1": {
+		"user": "root",
+		"password": "root",
+		"host": "localhost",
+		"database": "testGAC"
+	}
+}
+\end{lstlisting}
+
+Utilizando la linea de ordenes para mysql, podemos observar cual es el estado interno del SGBD
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase1_mysql.png}
+\caption{ Mysql status  }  
+\end{figure} 
+
+
+\begin{lstlisting}[language=python,caption={make testServlet }]
+1,atribute_1,atribute_2
+2,atribute_1,atribute_2
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,caption={make testServlet }]
+<!DOCTYPE html>
+    <html>
+    <head>
+    <title>mysql_1</title>
+    </head>
+    <body>
+    <h1>mysql_1</h1><hr><br><table style="width:100%"><tr><td>2</td><td>atribute_1</td><td>atribute_2</td></tr></table></body></html> 
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,caption={make testServlet }]
+[[1, "atribute_1", "atribute_2"], [2, "atribute_1", "atribute_2"]]
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python,caption={make testServlet }]
+<data>&lt;data&gt;&lt;i&gt;&lt;i&gt;1&lt;/i&gt;&lt;i&gt;atribute_1&lt;/i&gt;&lt;i&gt;atribute_2&lt;/i&gt;&lt;/i&gt;&lt;i&gt;&lt;i&gt;2&lt;/i&gt;&lt;i&gt;atribute_1&lt;/i&gt;&lt;i&gt;atribute_2&lt;/i&gt;&lt;/i&gt;&lt;/data&gt;</data>
+\end{lstlisting}
+
 
 \begin{figure}[H]  
 \centering 

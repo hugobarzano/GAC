@@ -1,0 +1,5 @@
+ {
+  "sqlite3_1": {
+    "db_path": "./testGAC.db"
+  }
+}

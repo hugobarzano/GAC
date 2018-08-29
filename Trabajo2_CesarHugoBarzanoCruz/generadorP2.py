@@ -26,7 +26,8 @@ OUTPUT_FOLDER="./output/"
 INPUT_FOLDER="./input/"
 
 """Generator configuration file: Databases interfaces definition"""
-GENERATOR_CONFIG=INPUT_FOLDER+"GENERATOR_CONFIG.json"
+#CONFIG=INPUT_FOLDER+"GENERATOR_CONFIG.json"
+CONFIG=os.environ['GENERATOR_CONFIG']
 def data2xml(data, name='data'):
     root = et.Element(name)
     return et.tostring(buildxml(root, data))
@@ -120,7 +121,7 @@ def main(argv):
             sys.exit()
 
     print "GAC: P2"
-    with open(GENERATOR_CONFIG) as config_file:
+    with open(CONFIG) as config_file:
         SGBD_config = json.load(config_file)
 
     if where==None:
