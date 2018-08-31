@@ -1,0 +1,10 @@
+{
+	"mysql_1": {
+		"user": "root",
+		"password": "root",
+		"host": "",
+		"database": "testGAC",
+		"table": "gac_models",
+		"model_name":"Consumer"
+	}
+}

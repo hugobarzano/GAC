@@ -25,4 +25,4 @@ testCaseError1:
 	sh TestCase_6.sh
 
 clean:
-		rm ./output/*
+		rm -rf ./output/*
