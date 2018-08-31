@@ -1,10 +1,10 @@
 #Makefile
 
 doc:
-	rm -r software_specification && mkdir software_specification && pydoc -w ./ && mv ./*.html software_specification/
+	rm -rf software_specification && mkdir software_specification && pydoc -w ./ && mv ./*.html software_specification/
 
 init:
-	echo "INIT"
+	python init.py
 
 testCase1:
 	sh TestCase_1.sh
@@ -21,11 +21,8 @@ testCase4:
 testCase5:
 	sh TestCase_5.sh
 
-testBadInputFormat:
-		python generator.py -i input/input.format -o output/output_testBadInputFormat.xml -d
-
-testMissingInputFile:
-		python generator.py -i input/missing_file -o output/output_testmissingfile.xml -d
+testCaseError1:
+	sh TestCase_6.sh
 
 clean:
 		rm ./output/*

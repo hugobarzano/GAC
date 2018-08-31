@@ -5,6 +5,10 @@
 		"host": "localhost",
 		"database": "testGAC"
 	},
+
+  "sqlite3_1": {
+    "db_path": "./testGAC.db"
+  },
 	"mysql_2": {
 		"user": "root",
 		"password": "root",
@@ -16,8 +20,5 @@
 		"password": "123456",
 		"host": "127.0.0.1",
 		"database": "testgac"
-	},
-  "sqlite3_1": {
-    "db_path": "./testGAC.db"
-  }
+	}
 }

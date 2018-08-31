@@ -1,0 +1,14 @@
+ {
+	"mysql_1": {
+		"user": "bad_user",
+		"password": "bad_pass",
+		"host": "localhost",
+		"database": "testGAC"
+	},
+  "postgres_1": {
+		"user": "bad_user",
+		"password": "bad_pass",
+		"host": "127.0.0.1",
+		"database": "testgac"
+	}
+}

@@ -326,7 +326,7 @@ Para mostrar la correcta funcionalidad del generador se va a comenzar exportando
 
 A continuación se muestra la configuración utilziada por el generador para el primer caso de pruaba. 
 
-\begin{lstlisting}[language=python,caption={make testServlet }]
+\begin{lstlisting}[language=python,caption={GAC\_GENERATOR\_CONFIG\_1.json }]
  {
 	"mysql_1": {
 		"user": "root",
@@ -345,13 +345,23 @@ Utilizando la linea de ordenes para mysql, podemos observar cual es el estado in
 \caption{ Mysql status  }  
 \end{figure} 
 
+Ejecutando el primer caso de prueba mediante make testCase1, el generador mostrará por pantalla lo siguiente: 
 
-\begin{lstlisting}[language=python,caption={make testServlet }]
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase1_1.png}
+\caption{ Test Case 1  }  
+\end{figure} 
+
+La ejecución del primer caso de prueba produce las siguientes salidas dentro del directorio output
+
+
+\begin{lstlisting}[language=python,caption={Formato CSV }]
 1,atribute_1,atribute_2
 2,atribute_1,atribute_2
 \end{lstlisting}
 
-\begin{lstlisting}[language=python,caption={make testServlet }]
+\begin{lstlisting}[language=python,caption={Formato HTML }]
 <!DOCTYPE html>
     <html>
     <head>
@@ -361,310 +371,264 @@ Utilizando la linea de ordenes para mysql, podemos observar cual es el estado in
     <h1>mysql_1</h1><hr><br><table style="width:100%"><tr><td>2</td><td>atribute_1</td><td>atribute_2</td></tr></table></body></html> 
 \end{lstlisting}
 
-\begin{lstlisting}[language=python,caption={make testServlet }]
+El resultado del generador para formato HTML queda mas claro si es interpretado por el navegador: 
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase1_html.png}
+\caption{ Test Case 1 - HTML Output }  
+\end{figure} 
+
+
+\begin{lstlisting}[language=python,caption={Formato Json }]
 [[1, "atribute_1", "atribute_2"], [2, "atribute_1", "atribute_2"]]
 \end{lstlisting}
 
 
-\begin{lstlisting}[language=python,caption={make testServlet }]
+\begin{lstlisting}[language=python,caption={Formato XML }]
 <data>&lt;data&gt;&lt;i&gt;&lt;i&gt;1&lt;/i&gt;&lt;i&gt;atribute_1&lt;/i&gt;&lt;i&gt;atribute_2&lt;/i&gt;&lt;/i&gt;&lt;i&gt;&lt;i&gt;2&lt;/i&gt;&lt;i&gt;atribute_1&lt;/i&gt;&lt;i&gt;atribute_2&lt;/i&gt;&lt;/i&gt;&lt;/data&gt;</data>
 \end{lstlisting}
 
+El resultado del generador para formato xml queda mas claro si es interpretado por el navegador: 
 
 \begin{figure}[H]  
 \centering 
-\includegraphics[scale=0.35]{imagenes/testString.png}
-\caption{ Test Strings  }  
+\includegraphics[scale=0.35]{imagenes/TestCase1_xml.png}
+\caption{ Test Case 1 - XML Output }  
 \end{figure} 
 
-\subsubsection{Numbers}
-Tipo de dato: Números
+\subsubsection{Test Case 2 - Postgres}
 
-\begin{figure}[H]  
-\centering 
-\includegraphics[scale=0.35]{imagenes/testNumbers.png}
-\caption{ Test Numbers  }  
-\end{figure} 
+A continuación se muestra la configuración utilizada por el generador para el segundo caso de pruaba. 
 
-\subsubsection{Objects}
-Tipo de dato: Objetos Json
-
-\begin{figure}[H]  
-\centering 
-\includegraphics[scale=0.35]{imagenes/testObjects.png}
-\caption{ Test Objects  }  
-\end{figure} 
-
-\subsubsection{Boolean}
-Tipo de dato: Booleanos
-
-\begin{figure}[H]  
-\centering 
-\includegraphics[scale=0.35]{imagenes/testBoolean.png}
-\caption{ Test Booleanos  }  
-\end{figure} 
-
-\subsubsection{Null}
-Tipo de dato: null
-
-\begin{figure}[H]  
-\centering 
-\includegraphics[scale=0.35]{imagenes/testNull.png}
-\caption{ Test Null  }  
-\end{figure} 
-
-\subsubsection{Arrays}
-Tipo de dato: Listas
-
-\begin{figure}[H]  
-\centering 
-\includegraphics[scale=0.35]{imagenes/testArrays.png}
-\caption{ Test Arrays  }  
-\end{figure} 
-
-\subsubsection{Json complejos}
-La siguiente prueba muestra la capacidad del generador para trabajar con ficheros json complejos, como es por ejemplo el servlet de una aplicación web. Debido a la extensión de la salida de esta prueba, no se adjuntará captura, si no la salida estándar. 
- 
-
-\begin{lstlisting}[language=python,caption={make testServlet }]
-hugo@Hugo-Machine:~/UNED/GAC/P1$ make testServlet 
-python generator.py -i input/servlet.json -o output/output_testservlet.xml -d
-Debug: TRUE
-GAC: P1 - GENERATOR
-INPUT: input/servlet.json
-OUTPUT: output/output_testservlet.xml
-Reading input file from input/servlet.json
-{"web-app": {
-  "servlet": [
-    {
-      "servlet-name": "cofaxCDS",
-      "servlet-class": "org.cofax.cds.CDSServlet",
-      "init-param": {
-        "templateProcessorClass": "org.cofax.WysiwygTemplate",
-        "templateLoaderClass": "org.cofax.FilesTemplateLoader",
-        "templatePath": "templates",
-        "templateOverridePath": "",
-        "defaultListTemplate": "listTemplate.htm",
-        "defaultFileTemplate": "articleTemplate.htm",
-        "useJSP": false,
-        "jspListTemplate": "listTemplate.jsp",
-        "jspFileTemplate": "articleTemplate.jsp",
-        "cachePackageTagsTrack": 200,
-        "cachePackageTagsStore": 200,
-        "cachePackageTagsRefresh": 60,
-        "cacheTemplatesTrack": 100,
-        "cacheTemplatesStore": 50,
-        "cacheTemplatesRefresh": 15,
-        "cachePagesTrack": 200,
-        "cachePagesStore": 100,
-        "cachePagesRefresh": 10,
-        "cachePagesDirtyRead": 10,
-        "searchEngineListTemplate": "forSearchEnginesList.htm",
-        "searchEngineFileTemplate": "forSearchEngines.htm",
-        "searchEngineRobotsDb": "WEB-INF/robots.db",
-        "useDataStore": true,
-        "dataStoreClass": "org.cofax.SqlDataStore",
-        "redirectionClass": "org.cofax.SqlRedirection",
-        "dataStoreName": "cofax",
-        "dataStoreDriver": "com.microsoft.jdbc.sqlserver.SQLServerDriver",
-        "dataStoreUrl": "jdbc:microsoft:sqlserver://LOCALHOST:1433;DatabaseName=goon",
-        "dataStoreUser": "sa",
-        "dataStorePassword": "dataStoreTestQuery",
-        "dataStoreTestQuery": "SET NOCOUNT ON;select test='test';",
-        "dataStoreLogFile": "/usr/local/tomcat/logs/datastore.log",
-        "dataStoreInitConns": 10,
-        "dataStoreMaxConns": 100,
-        "dataStoreConnUsageLimit": 100,
-        "dataStoreLogLevel": "debug",
-        "maxUrlLength": 500}},
-    {
-      "servlet-name": "cofaxEmail",
-      "servlet-class": "org.cofax.cds.EmailServlet",
-      "init-param": {
-      "mailHost": "mail1",
-      "mailHostOverride": "mail2"}},
-    {
-      "servlet-name": "cofaxAdmin",
-      "servlet-class": "org.cofax.cds.AdminServlet"},
-
-    {
-      "servlet-name": "fileServlet",
-      "servlet-class": "org.cofax.cds.FileServlet"},
-    {
-      "servlet-name": "cofaxTools",
-      "servlet-class": "org.cofax.cms.CofaxToolsServlet",
-      "init-param": {
-        "templatePath": "toolstemplates/",
-        "log": 1,
-        "logLocation": "/usr/local/tomcat/logs/CofaxTools.log",
-        "logMaxSize": "",
-        "dataLog": 1,
-        "dataLogLocation": "/usr/local/tomcat/logs/dataLog.log",
-        "dataLogMaxSize": "",
-        "removePageCache": "/content/admin/remove?cache=pages&id=",
-        "removeTemplateCache": "/content/admin/remove?cache=templates&id=",
-        "fileTransferFolder": "/usr/local/tomcat/webapps/content/fileTransferFolder",
-        "lookInContext": 1,
-        "adminGroupID": 4,
-        "betaServer": true}}],
-  "servlet-mapping": {
-    "cofaxCDS": "/",
-    "cofaxEmail": "/cofaxutil/aemail/*",
-    "cofaxAdmin": "/admin/*",
-    "fileServlet": "/static/*",
-    "cofaxTools": "/tools/*"},
-
-  "taglib": {
-    "taglib-uri": "cofax.tld",
-    "taglib-location": "/WEB-INF/tlds/cofax.tld"}}}
-
-PROCESSING --> JSON 2 XML 
-Validating json input file structure...
-Valid structure of input json file...
-Serializing output file format...
-Writing output file in output/output_testservlet.xml
-<?xml version="1.0" encoding="utf-8"?>
-<web-app>
-	<servlet-mapping>
-		<cofaxTools>/tools/*</cofaxTools>
-		<cofaxCDS>/</cofaxCDS>
-		<fileServlet>/static/*</fileServlet>
-		<cofaxAdmin>/admin/*</cofaxAdmin>
-		<cofaxEmail>/cofaxutil/aemail/*</cofaxEmail>
-	</servlet-mapping>
-	<taglib>
-		<taglib-location>/WEB-INF/tlds/cofax.tld</taglib-location>
-		<taglib-uri>cofax.tld</taglib-uri>
-	</taglib>
-	<servlet>
-		<servlet-name>cofaxCDS</servlet-name>
-		<init-param>
-			<cachePagesStore>100</cachePagesStore>
-			<searchEngineListTemplate>forSearchEnginesList.htm</searchEngineListTemplate>
-			<maxUrlLength>500</maxUrlLength>
-			<dataStoreTestQuery>SET NOCOUNT ON;select test='test';</dataStoreTestQuery>
-			<defaultFileTemplate>articleTemplate.htm</defaultFileTemplate>
-			<dataStoreLogFile>/usr/local/tomcat/logs/datastore.log</dataStoreLogFile>
-			<templateLoaderClass>org.cofax.FilesTemplateLoader</templateLoaderClass>
-			<dataStoreClass>org.cofax.SqlDataStore</dataStoreClass>
-			<templateOverridePath></templateOverridePath>
-			<cacheTemplatesStore>50</cacheTemplatesStore>
-			<dataStoreUrl>jdbc:microsoft:sqlserver://LOCALHOST:1433;DatabaseName=goon</dataStoreUrl>
-			<searchEngineFileTemplate>forSearchEngines.htm</searchEngineFileTemplate>
-			<cachePagesTrack>200</cachePagesTrack>
-			<cachePackageTagsStore>200</cachePackageTagsStore>
-			<dataStoreName>cofax</dataStoreName>
-			<dataStorePassword>dataStoreTestQuery</dataStorePassword>
-			<useJSP>False</useJSP>
-			<defaultListTemplate>listTemplate.htm</defaultListTemplate>
-			<dataStoreUser>sa</dataStoreUser>
-			<jspListTemplate>listTemplate.jsp</jspListTemplate>
-			<jspFileTemplate>articleTemplate.jsp</jspFileTemplate>
-			<dataStoreMaxConns>100</dataStoreMaxConns>
-			<cachePagesDirtyRead>10</cachePagesDirtyRead>
-			<cachePagesRefresh>10</cachePagesRefresh>
-			<cacheTemplatesTrack>100</cacheTemplatesTrack>
-			<dataStoreConnUsageLimit>100</dataStoreConnUsageLimit>
-			<redirectionClass>org.cofax.SqlRedirection</redirectionClass>
-			<searchEngineRobotsDb>WEB-INF/robots.db</searchEngineRobotsDb>
-			<templateProcessorClass>org.cofax.WysiwygTemplate</templateProcessorClass>
-			<cachePackageTagsRefresh>60</cachePackageTagsRefresh>
-			<templatePath>templates</templatePath>
-			<useDataStore>True</useDataStore>
-			<cacheTemplatesRefresh>15</cacheTemplatesRefresh>
-			<dataStoreDriver>com.microsoft.jdbc.sqlserver.SQLServerDriver</dataStoreDriver>
-			<cachePackageTagsTrack>200</cachePackageTagsTrack>
-			<dataStoreLogLevel>debug</dataStoreLogLevel>
-			<dataStoreInitConns>10</dataStoreInitConns>
-		</init-param>
-		<servlet-class>org.cofax.cds.CDSServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>cofaxEmail</servlet-name>
-		<init-param>
-			<mailHostOverride>mail2</mailHostOverride>
-			<mailHost>mail1</mailHost>
-		</init-param>
-		<servlet-class>org.cofax.cds.EmailServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>cofaxAdmin</servlet-name>
-		<servlet-class>org.cofax.cds.AdminServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>fileServlet</servlet-name>
-		<servlet-class>org.cofax.cds.FileServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>cofaxTools</servlet-name>
-		<init-param>
-			<logLocation>/usr/local/tomcat/logs/CofaxTools.log</logLocation>
-			<fileTransferFolder>/usr/local/tomcat/webapps/content/fileTransferFolder</fileTransferFolder>
-			<log>1</log>
-			<dataLog>1</dataLog>
-			<dataLogLocation>/usr/local/tomcat/logs/dataLog.log</dataLogLocation>
-			<adminGroupID>4</adminGroupID>
-			<lookInContext>1</lookInContext>
-			<removePageCache>/content/admin/remove?cache=pages&amp;id=</removePageCache>
-			<removeTemplateCache>/content/admin/remove?cache=templates&amp;id=</removeTemplateCache>
-			<logMaxSize></logMaxSize>
-			<dataLogMaxSize></dataLogMaxSize>
-			<betaServer>True</betaServer>
-			<templatePath>toolstemplates/</templatePath>
-		</init-param>
-		<servlet-class>org.cofax.cms.CofaxToolsServlet</servlet-class>
-	</servlet>
-</web-app>
-hugo@Hugo-Machine:~/UNED/GAC/P1$
+\begin{lstlisting}[language=python,caption={GAC\_GENERATOR\_CONFIG\_2.json }]
+ {
+  "postgres_1": {
+		"user": "postgres",
+		"password": "123456",
+		"host": "127.0.0.1",
+		"database": "testgac"
+  }
+}
 \end{lstlisting}
- 
-\subsubsection{XML to JSon}
-Como parte de la funcionalidad añadida, se va a realizar una unica prueba, en la que el generador va a ingestar un fichero XML y va a generar un fichero JSON.  
+
+Utilizando la linea de ordenes para Postgres, podemos observar cual es el estado interno del SGBD. Por simplicidad la estructura de la base de datos es similiar a mysql. 
 
 \begin{figure}[H]  
 \centering 
-\includegraphics[scale=0.35]{imagenes/testXML2JSON.png}
-\caption{ Test XML to Json  }  
+\includegraphics[scale=0.35]{imagenes/TestCase2_postgres.png}
+\caption{ Postgres status }  
+\end{figure} 
+
+El segundo caso de prueba puede ejecutarse mediante make testCase2, el resultado es similitar al caso de prueba 1. 
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase2_1.png}
+\caption{ Test Case 2 }  
+\end{figure} 
+
+
+
+
+\subsubsection{Test Case 3 - Sqlite3 }
+
+A continuación se muestra la configuración utilizada por el generador para el tercer caso de pruaba. 
+
+\begin{lstlisting}[language=python,caption={GAC\_GENERATOR\_CONFIG\_3.json }]
+ {
+  "sqlite3_1": {
+    "db_path": "./testGAC.db"
+  }
+}
+
+\end{lstlisting}
+
+
+El tercer caso de prueba puede ejecutarse mediante make testCase3, el resultado es similitar al caso de prueba 1 y 2. 
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase3_1.png}
+\caption{ Test Case 3 }  
+\end{figure} 
+
+
+\subsubsection{Test Case 4 - WHERE}
+
+El cuarto caso de prueba muestra el uso de la clausula WHERE para filtrar los resultados del generador. De manera adicional el caso de prueba número 4 trata de mostrar la capacidad del generador para utilizar varios SGBD establecidos en la misma configuración. Por simplicidad se va a utilizar la misma base de datos mysql pero a efectos prácticos de configuración, podrian ser 2 SGBD totalmente independientes. 
+
+\begin{lstlisting}[language=python,caption={GAC\_GENERATOR\_CONFIG\_4.json }]
+  {
+	"mysql_1": {
+		"user": "root",
+		"password": "root",
+		"host": "localhost",
+		"database": "testGAC"
+	},
+	"mysql_2": {
+		"user": "root",
+		"password": "root",
+		"host": "127.0.0.1",
+		"database": "testGAC"
+	}
+}
+\end{lstlisting}
+
+Para mostrar la capacidad de filtrado mediante clausula WHERE, se van a filtrar todos los modelos cuyo número sea 1 es, es decir, --where "model\_no = '1'". El cuarto caso de prueba puede ser ejecutado mediante make testCase4
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase4_1.png}
+\caption{ Test Case 3 }  
 \end{figure}
+
+La ejecución del cuarto caso de prueba produce las siguientes salidas dentro del directorio output, 4 ficheros con los correspondientes formatos para mysql\_1 junto con otros 4 ficheros con los correspondientes formatos para mysql\_2. Como indicamos anteriormente las bases de datos son similares por lo que a continuación solo se va a mostrar los ficheros generados para mysql\_2. 
+
+
+\begin{lstlisting}[language=python,caption={Formato CSV }]
+1,atribute_1,atribute_2
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,caption={Formato HTML }]
+<!DOCTYPE html>
+    <html>
+    <head>
+    <title>mysql_2</title>
+    </head>
+    <body>
+    <h1>mysql_2</h1><hr><br><table style="width:100%"><tr><td>1</td><td>atribute_1</td><td>atribute_2</td></tr></table></body></html> 
+\end{lstlisting}
+
+El resultado del generador para formato HTML queda mas claro si es interpretado por el navegador: 
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase4_html.png}
+\caption{ Test Case 4 - HTML Output }  
+\end{figure} 
+
+
+\begin{lstlisting}[language=python,caption={Formato Json }]
+[[1, "atribute_1", "atribute_2"]]
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python,caption={Formato XML }]
+<data>&lt;data&gt;&lt;i&gt;&lt;i&gt;1&lt;/i&gt;&lt;i&gt;atribute_1&lt;/i&gt;&lt;i&gt;atribute_2&lt;/i&gt;&lt;/i&gt;&lt;/data&gt;</data>
+\end{lstlisting}
+
+El resultado del generador para formato xml queda mas claro si es interpretado por el navegador: 
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase4_xml.png}
+\caption{ Test Case 4 - XML Output }  
+\end{figure} 
+
+\subsubsection{Test Case 5 - All SGBD}
+
+El quinto caso de prueba muestra la capacidad del generador para producir salida involucrando a todos los SGBD soportados por el mismo. Para ello, a continuación se muestra la configuración aplicada al generador. 
+
+\begin{lstlisting}[language=python,caption={GAC\_GENERATOR\_CONFIG\_5.json }]
+ {
+	"mysql_1": {
+		"user": "root",
+		"password": "root",
+		"host": "localhost",
+		"database": "testGAC"
+	},
+	"mysql_2": {
+		"user": "root",
+		"password": "root",
+		"host": "127.0.0.1",
+		"database": "testGAC"
+	},
+  "postgres_1": {
+		"user": "postgres",
+		"password": "123456",
+		"host": "127.0.0.1",
+		"database": "testgac"
+	},
+  "sqlite3_1": {
+    "db_path": "./testGAC.db"
+  }
+}
+\end{lstlisting}
+
+El quinto caso de prueba puede ser ejecutado mediante  make testCase5 el cual genera en el directorio output 4 ficheros con los correspondientes formatos para cada uno de los SGBDs configurados. 
+
+\begin{figure}[H]  
+\centering 
+\includegraphics[scale=0.35]{imagenes/TestCase5_1.png}
+\caption{ Test Case 5 }  
+\end{figure}
+
+No se va a mostrar el contenido de los ficheros generador debido a que el estado de las bases de datos no ha cambiado con respecto a los casos de prueba anteriores. 
+
+ 
+ 
+
+
  
 \subsection{Pruebas de Error} 
 
-Para realizar las pruebas de error, se ejercitarán los casos en los que las entradas no tengan el formato adecuado o la estructura del json de entrada no sea adecuada.  
+Para realizar las pruebas de error, se han definido 2 escenarios.
 
-\subsubsection{Entrada inexistente}
-Si el usuario intenta usar como entrada ficheros que no existen, el generador notificará el error y parará: 
+\subsubsection{Test Case Error - 1}
+
+En el primer escenario de error, las credenciales para conectar con el SGBD son erroneas. 
+
+\begin{lstlisting}[language=python,caption={GAC\_GENERATOR\_CONFIG\_error.json }]
+{
+	"mysql_1": {
+		"user": "bad_user",
+		"password": "bad_pass",
+		"host": "localhost",
+		"database": "testGAC"
+	},
+  "postgres_1": {
+		"user": "bad_user",
+		"password": "bad_pass",
+		"host": "127.0.0.1",
+		"database": "testgac"
+	}
+}
+\end{lstlisting}
+
+El primer caso de error puede ser ejecutado mediante make testCaseError1. Como podemos observar, el generador continua su ejecución intentando conectarse a los distintos SGBD configurados. 
 
 \begin{figure}[H]  
 \centering 
-\includegraphics[scale=0.35]{imagenes/missingInput.png}
-\caption{ Missing input file  }  
+\includegraphics[scale=0.35]{imagenes/TestCase6_1.png}
+\caption{ Test Case Error - 1 }  
 \end{figure}
 
-\subsubsection{Input.format}
+\subsubsection{Test Case Error - 2}
 
-Si el usuario del generador intenta usar como entrada ficheros cuya extensión no sea .json o .xml el generador notificará el error y parará: 
+Para el segundo escenario de error se va a aplicar la misma configuración y ejecución. La  diferencia esta en que los servicios locales que representas los SGBD configurados estaran detenidos, de esta manera podemos simular que tanto los host como los SGBD no estan disponibles para su conexión. 
+
+Los SGBD usados para este escenario pueden ser detenidos mediante: 
+\begin{enumerate}
+\item \textbf{mysql: sudo /etc/init.d/mysql stop }
+\item \textbf{postgres: sudo service postgresql stop}
+\end{enumerate}
 
 \begin{figure}[H]  
 \centering 
-\includegraphics[scale=0.35]{imagenes/badInputFormat.png}
-\caption{ Bad input format  }  
+\includegraphics[scale=0.35]{imagenes/TestCase6_2.png}
+\caption{ Test Case Error - 2 }  
 \end{figure}
 
-\subsubsection{Estructura Json}
 
-Si el usuario del generador intenta usar como entrada un fichero json cuya estructura no sea la adecuada, el generador notificará el error y parará ya que realiza un chequeo contra esquema solo para los json de entrada. 
 
-\begin{figure}[H]  
-\centering 
-\includegraphics[scale=0.35]{imagenes/badInput.png}
-\caption{ Bad input json file  }  
-\end{figure}
+
 
 \chapter{Entrega}
 En este capítulo se detallan cada uno de los ficheros/directorios que forman parte de la entrega. 
 
 \section{Generador}
-El generador propuesto por el enunciado se compone de un único fichero denominado generator.py el cual se encuentra alojado en la raíz del fichero comprimido que se envía. El generador ha sido desarrollado sobre Ubuntu14 y hace uso de la versión python 2.7.6 la cual incluye todas las dependencias necesarias. Si alguna de ellas causará error, podría ser instalada fácilmente descargando el paquete de las URLs indicadas en la bibliografía y ejecutando sudo pip install nombre\_paquete 
+El generador propuesto por el enunciado se compone de un único fichero denominado generadorP2.py el cual se encuentra alojado en la raíz del fichero comprimido que se envía. El generador ha sido desarrollado sobre Ubuntu18 y hace uso de la versión python 2.7.15. Si alguna de ellas causará error, podría ser instalada fácilmente descargando el paquete de las URLs indicadas en la bibliografía y ejecutando sudo pip install nombre\_paquete 
 
 \section{Makefile}
 El fichero ''makefile'' establece las distintas ejecuciones de pruebas para el generador. Tambien dispone de la entrada ''make doc'' para generar la especificación software mediante pydoc. Alojado en la raíz del fichero comprimido para la entrega. 
@@ -672,14 +636,14 @@ El fichero ''makefile'' establece las distintas ejecuciones de pruebas para el g
 \section{Directorio software specification}
 Contiene la especificación del generador en formato HTML. Dicha especificación ha sido generada utilizando la librería pydoc. 
 
-\section{Trabajo1\_CesarHugoBarzanoCruz.pdf}
+\section{Trabajo2\_CesarHugoBarzanoCruz.pdf}
 Memoría de la práctica, referencia a este documento en si mismo, alojado en el directorio raíz de la entrega. 
 
 \section{Directorio DOC}
 Directorio donde se almacenan todos los fuentes usados para generar esta documentación utilizando LaTEX. Incluye tambien las imagenes usadas en la memoria. 
 
 \section{Directorio input}
-Directorio donde se almacenan todos los ficheros usados como entradas en la sección de pruebas
+Directorio donde se almacenan todos los ficheros usados como configuracion para el generador.
 
 \section{Directorio Output}
 Directorio donde se almacenan todos los ficheros resultados de la ejecución de la pruebas. 
@@ -732,33 +696,79 @@ Directorio donde se almacenan todos los ficheros resultados de la ejecución de 
 
 \chapter{Anexo}
 \section{generator.py}
-\begin{lstlisting}[language=python,caption={generator.py }]
-"""XML generator from file.json"""
+\begin{lstlisting}[language=python,caption={generatorP2.py }]
+#!/usr/bin/python
 
 
 __author__ = 'Hugo Barzano'
 __date__ = '2017/2018'
 __version__ = 'v1.0'
 __credits__ = 'GAC'
-__file__ = 'generator.py'
+__file__ = 'generatorP2.py'
 
-import json
-import xmltodict
+
 import sys
 import os
 import getopt
+import time
+import mysql.connector
+import json
+import psycopg2
+import sqlite3
+import lxml.etree as et
+import csv
+import io
 
-def readInput(input_file):
-    """Function to read input files.
-         :param input_file: input file path"""
-    print "Reading input file from "+input_file
-    try:
-        with open(input_file, 'r') as f:
-    	       input_file_as_string = f.read()
-        return input_file_as_string
-    except EnvironmentError:
-        print("Oops! Error Reading input file...")
-        exit()
+
+#INPUT and OUTPUT DATA FOLDER
+OUTPUT_FOLDER="./output/"
+INPUT_FOLDER="./input/"
+
+"""Generator configuration file: Databases interfaces definition"""
+#CONFIG=INPUT_FOLDER+"GENERATOR_CONFIG.json"
+CONFIG=os.environ['GENERATOR_CONFIG']
+def data2xml(data, name='data'):
+    root = et.Element(name)
+    return et.tostring(buildxml(root, data))
+
+def buildxml(root, data):
+    if isinstance(data, dict):
+        for key, value in data.iteritems():
+            sub = et.SubElement(root, key)
+            buildxml(sub, value)
+    elif isinstance(data, tuple) or isinstance(data, list):
+        for value in data:
+            sub = et.SubElement(root, 'i')
+            buildxml(sub, value)
+    elif isinstance(data, basestring):
+        root.text = data
+    else:
+        root.text = str(data)
+    return root
+
+def buildCsv(data,sgbd):
+    with open(OUTPUT_FOLDER+"GAC_"+sgbd+"_"+time.strftime("%Y%m%d_%H%M%S")+".csv", "w") as output:
+        writer = csv.writer(output, lineterminator='\n')
+        writer.writerows(data)
+    print "Writing output file in"+OUTPUT_FOLDER+"GAC_"+sgbd+"_"+time.strftime("%Y%m%d_%H%M%S")+".csv"
+
+def buildHtml(data,sgbd):
+    html_table_1="""<table style="width:100%">"""
+    html_table_2=""
+    for tupla in data:
+        html_table_2="<tr>"
+        for t in tupla:
+            html_table_2=html_table_2+"<td>"+str(t)+"</td>"
+        html_table_2=html_table_2+"</tr>"
+    html_table=html_table_1+html_table_2+"</table>"
+    html_doc="""<!DOCTYPE html>
+    <html>
+    <head>
+    <title>"""+sgbd+"""</title>
+    </head>
+    <body>
+    <h1>"""+sgbd+"""</h1><hr><br>"""+html_table+"""</body></html> """
+    return html_doc
 
 def writeOutput(output_file,output_string):
     """Function to write output files.
@@ -772,55 +782,21 @@ def writeOutput(output_file,output_string):
         print("Oops! Error writing output file...")
         exit()
 
-def validateJson(input_string):
-    """"Function to validate json inputs.
-         :param input_string: json as string to validate"""
-    try:
-        validate_input=json.loads(input_string)
-        print "Valid structure of input json file..."
-    except ValueError:
-        print("Oops! Invalid structure of input json file...")
-        exit()
-
-def parseInputJsonToXML(input_string):
-    """Function to parse json files as input to XML string.
-         :param input_string: input data file as string """
-    xmlString = xmltodict.unparse(json.loads(input_string), pretty=True)
-    return xmlString
-
-def parseInputXMLToJson(input_string):
-    """Function to parse xml files as input to json string.
-         :param input_string: input data file as string """
-    jsonString = json.dumps(xmltodict.parse(input_string))
-    return jsonString
-
-def usage():
-    """Method to display generator usage. """
-    print """
-Usage: python generador.py [options]
-
-Options
--v, --version			Show the version of this script
--h, --help			Show this help.
--i <path>, --input <path>    	Input file
--o <path>, --output <path>     	Output file
--d,         --debug         	Debug Mode
-"""
-
-def version():
-    """Function to display software version"""
-    print "version 1.0"
+def configurePostgres(config_json):
+    config_str="host='"+config_json["host"]+"' dbname='"+config_json["database"]+"' user='"+config_json["user"]+"' password='"+config_json["password"]+"'"
+    return config_str
 
 def main(argv):
+    #python generadorP2.py -t gac_models -w "atr_1 = 'atribute_1'"
     """Main method to execute the generator.
                 :param argv: value from 0 to n-1 to ident"""
-    input_file=None
-    output_file=None
+    table=None
+    where=None
     debug=False
 
     # process arguments
     try:
-        opts, args = getopt.getopt(argv, "hvi:o:d", ["help", "version", "input=","output=","debug"])
+        opts, args = getopt.getopt(argv, "hvt:w:d", ["help", "version", "table=","where=","debug"])
     except getopt.GetoptError as err:
         print str(err)
         usage()
@@ -832,10 +808,10 @@ def main(argv):
         elif opt in ("-v", "--version"):
             version()
             sys.exit()
-        elif opt in ("-i", "--input"):
-            input_file = arg
-        elif opt in ("-o","--output"):
-            output_file=arg
+        elif opt in ("-t", "--table"):
+            table = arg
+        elif opt in ("-w","--where"):
+            where=arg
         elif opt in ("-d", "--debug"):
             debug = True
             print "Debug: TRUE"
@@ -843,37 +819,86 @@ def main(argv):
             usage()
             sys.exit()
 
-    print "GAC: P1 - GENERATOR"
-    if debug:
-        print "INPUT: "+ input_file
-        print "OUTPUT: "+ output_file
+    print "GAC: P2"
+    with open(CONFIG) as config_file:
+        SGBD_config = json.load(config_file)
 
-
-
-    input_as_string=readInput(input_file)
-    if debug: print input_as_string
-    if input_file.split(".")[1]=="json":
-        print "PROCESSING --> JSON 2 XML "
-        if debug: print "Validating json input file structure..."
-        validateJson(input_as_string)
-        if debug: print "Serializing output file format..."
-        if not ".xml" in output_file: output_file=output_file+".xml"
-        output_as_string=parseInputJsonToXML(input_as_string)
-    elif input_file.split(".")[1]=="xml":
-        print "PROCESSING --> XML 2 JSON"
-        if debug: print "Serializing output file format"
-        if not ".json" in output_file: output_file=output_file+".json"
-        output_as_string=parseInputXMLToJson(input_as_string)
+    if where==None:
+        query = ("SELECT * FROM "+table)
     else:
-        print "Invalid input file format. It should be input.json or input.xml "
-        exit()
-    writeOutput(output_file,output_as_string)
-    if debug:print output_as_string
+        query = ("SELECT * FROM "+table+ " WHERE "+where)
+    connector=None
+    cursor=None
+    data=None
+    for SGBD in SGBD_config:
+        if "mysql" in SGBD:
+            print "Mysql: "+ SGBD
+            try:
+                connector = mysql.connector.connect(**SGBD_config[SGBD])
+            except mysql.connector.Error as err:
+                print(err)
+                continue
+        elif "postgres" in SGBD:
+            print "Postgres"+ SGBD
+            try:
+                connector = psycopg2.connect(configurePostgres(SGBD_config[SGBD]))
+            except psycopg2.OperationalError as err:
+                print (err)
+                continue
+        elif "sqlite3" in SGBD:
+            print "Sqlite3: "+SGBD_config[SGBD]["db_path"]
+            try:
+                connector=sqlite3.connect(SGBD_config[SGBD]["db_path"])
+            except Exception as err:
+                print "no sql3"
+                print (err)
+                continue
+        else:
+            print SGBD+" Not SGBD supported"
+
+        cursor = connector.cursor()
+        cursor.execute(query)
+        data=cursor.fetchall()
+        if data != None:
+            """XML FILE"""
+            xml_data=data2xml(data2xml(data, name='data'))
+            writeOutput(OUTPUT_FOLDER+"GAC_"+SGBD+"_"+time.strftime("%Y%m%d_%H%M%S")+".xml",xml_data)
+
+            """CSV FILE"""
+            buildCsv(data,SGBD)
+
+            """HTML FILE"""
+            jsonObj = json.dumps(data)
+            writeOutput(OUTPUT_FOLDER+"GAC_"+SGBD+"_"+time.strftime("%Y%m%d_%H%M%S")+".json",jsonObj)
+
+            """HTML FILE"""
+            html_doc=buildHtml(data,SGBD)
+            writeOutput(OUTPUT_FOLDER+"GAC_"+SGBD+"_"+time.strftime("%Y%m%d_%H%M%S")+".html",html_doc)
+        else:
+            print "No data"
+    #isinstance(object, classinfo)
 
 
 # --------------------------------------------------------------------------------------------------
 # Main exec
 # --------------------------------------------------------------------------------------------------
+
+def usage():
+    """Method to display generator usage. """
+    print """
+Usage: python generador.py [options]
+
+Options
+-v, --version			Show the version of this script
+-h, --help			Show this help.
+-t <table_name>, --table <table_name>   Input database table
+-w <"column = 'value'">, --where <"column = 'value'">   Optional Where Clause
+-d,         --debug         	Debug Mode
+"""
+
+def version():
+    """Function to display software version"""
+    print "version 1.0"
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -886,43 +911,7 @@ if __name__ == "__main__":
 
 \section{makefile}
 \begin{lstlisting}[language=python,caption={makefile }]
-#Makefile
 
-doc:
-	rm -r software_specification && mkdir software_specification && pydoc -w ./ && mv ./*.html software_specification/
-
-testString:
-	python generator.py -i input/testString.json -o output/testString.xml -d
-
-testNumbers:
-	python generator.py -i input/testNumbers.json -o output/testNumbers.xml -d
-
-testObjects:
-	python generator.py -i input/testObjects.json -o output/testObjects.xml -d
-
-testBoolean:
-		python generator.py -i input/testBoolean.json -o output/testBoolean.xml -d
-
-testNull:
-		python generator.py -i input/testNull.json -o output/testNull.xml -d
-
-testArrays:
-	python generator.py -i input/testArrays.json -o output/testArrays.xml -d
-
-testServlet:
-	python generator.py -i input/servlet.json -o output/output_testservlet.xml -d
-
-testXML2JSON:
-		python generator.py -i input/testXML2JSON.xml -o output/output_testXML2JSON.json -d
-
-testBadInputFormat:
-		python generator.py -i input/input.format -o output/output_testBadInputFormat.xml -d
-
-testMissingInputFile:
-		python generator.py -i input/missing_file -o output/output_testmissingfile.xml -d
-
-testBadJson:
-		python generator.py -i input/badInput.json -o output/output_testBAdInput.xml -d
 
 \end{lstlisting}
 

@@ -7,25 +7,21 @@
 \contentsline {section}{\numberline {2.4}Pruebas}{12}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}Pruebas de Funcionalidad}{12}{subsection.2.4.1}
 \contentsline {subsubsection}{Test Case 1 - mysql}{13}{section*.3}
-\contentsline {subsubsection}{Numbers}{14}{section*.4}
-\contentsline {subsubsection}{Objects}{15}{section*.5}
-\contentsline {subsubsection}{Boolean}{15}{section*.6}
-\contentsline {subsubsection}{Null}{15}{section*.7}
-\contentsline {subsubsection}{Arrays}{16}{section*.8}
-\contentsline {subsubsection}{Json complejos}{16}{section*.9}
-\contentsline {subsubsection}{XML to JSon}{20}{section*.10}
-\contentsline {subsection}{\numberline {2.4.2}Pruebas de Error}{21}{subsection.2.4.2}
-\contentsline {subsubsection}{Entrada inexistente}{21}{section*.11}
-\contentsline {subsubsection}{Input.format}{21}{section*.12}
-\contentsline {subsubsection}{Estructura Json}{22}{section*.13}
+\contentsline {subsubsection}{Test Case 2 - Postgres}{15}{section*.4}
+\contentsline {subsubsection}{Test Case 3 - Sqlite3 }{16}{section*.5}
+\contentsline {subsubsection}{Test Case 4 - WHERE}{16}{section*.6}
+\contentsline {subsubsection}{Test Case 5 - All SGBD}{18}{section*.7}
+\contentsline {subsection}{\numberline {2.4.2}Pruebas de Error}{19}{subsection.2.4.2}
+\contentsline {subsubsection}{Test Case Error - 1}{20}{section*.8}
+\contentsline {subsubsection}{Test Case Error - 2}{20}{section*.9}
 \contentsline {chapter}{\numberline {3}Entrega}{23}{chapter.3}
 \contentsline {section}{\numberline {3.1}Generador}{23}{section.3.1}
 \contentsline {section}{\numberline {3.2}Makefile}{23}{section.3.2}
 \contentsline {section}{\numberline {3.3}Directorio software specification}{23}{section.3.3}
-\contentsline {section}{\numberline {3.4}Trabajo1\_CesarHugoBarzanoCruz.pdf}{23}{section.3.4}
+\contentsline {section}{\numberline {3.4}Trabajo2\_CesarHugoBarzanoCruz.pdf}{23}{section.3.4}
 \contentsline {section}{\numberline {3.5}Directorio DOC}{24}{section.3.5}
 \contentsline {section}{\numberline {3.6}Directorio input}{24}{section.3.6}
 \contentsline {section}{\numberline {3.7}Directorio Output}{24}{section.3.7}
 \contentsline {chapter}{\numberline {4}Anexo}{27}{chapter.4}
 \contentsline {section}{\numberline {4.1}generator.py}{27}{section.4.1}
-\contentsline {section}{\numberline {4.2}makefile}{29}{section.4.2}
+\contentsline {section}{\numberline {4.2}makefile}{31}{section.4.2}
